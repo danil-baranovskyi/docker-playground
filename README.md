@@ -2,7 +2,7 @@
 
 ## Update the project
 To update the project, you need to **rebuild** your image, so it will have 
-latest changes, and then run a **new container** based on that image.
+the latest changes, and then run a **new container** based on that image.
 
 ### Delete docker container (if running):
 
@@ -30,4 +30,16 @@ docker rm -f <the-container-id>
 `run` run new container based on provided image
 ```
 docker run -dp 127.0.0.1:3000:3000 <image-tag|id>
+```
+
+## Persist the state
+To persist the state, you need to create a **volume**
+and mount it with the container
+#### Create a volume
+```
+docker volume create <volume-name>
+```
+#### Run container with the volume
+```
+docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=<volume-name>,target=<path/to/where/store/data> <image-tag|id>
 ```
