@@ -43,3 +43,14 @@ docker volume create <volume-name>
 ```
 docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=<volume-name>,target=<path/to/where/store/data> <image-tag|id>
 ```
+
+## Bind mounts
+To connect filesystem in your host machine and container you need to use
+another type of mount - `bind`
+#### Create a binding
+`-i` keeps the standard input (STDIN) open, allowing you to interact with the container.\
+`-t` allocates a pseudo-TTY, which is necessary for an interactive shell.\
+`src="$(pwd)"` sets the source directory to the current working directory on the host (using the `pwd` command to get the current directory path)
+```
+docker run -it --mount type=bind,src="$(pwd)",target=/src ubuntu bash
+```
