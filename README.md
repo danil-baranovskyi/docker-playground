@@ -34,7 +34,7 @@ docker run -dp 127.0.0.1:3000:3000 <image-tag|id>
 
 ## Persist the state
 To persist the state, you need to create a **volume**
-and mount it with the container
+and mount it with the container.
 #### Create a volume
 ```
 docker volume create <volume-name>
@@ -46,11 +46,31 @@ docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=<volume-name>,target=
 
 ## Bind mounts
 To connect filesystem in your host machine and container you need to use
-another type of mount - `bind`
+another type of mount - `bind`.
 #### Create a binding
 `-i` keeps the standard input (STDIN) open, allowing you to interact with the container.\
 `-t` allocates a pseudo-TTY, which is necessary for an interactive shell.\
 `src="$(pwd)"` sets the source directory to the current working directory on the host (using the `pwd` command to get the current directory path)
 ```
 docker run -it --mount type=bind,src="$(pwd)",target=/src ubuntu bash
+```
+
+## Networks
+Networks help containers to communicate with each others.
+
+#### Create a network
+```
+docker network create <network-name>
+```
+#### Create a network
+`--network <network-name>` - attach the network to the container
+```
+docker run -d --name <container-name> --network <network-name> nginx
+docker run -d --name <container-name> --network <network-name> redis
+```
+#### Inspect a network
+You can get info about attached containers to the network and other
+useful data.
+```
+docker network inspect <network-name>
 ```
